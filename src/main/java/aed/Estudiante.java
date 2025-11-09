@@ -1,4 +1,5 @@
 package aed;
+
 import java.util.ArrayList;
 
 public class Estudiante implements Comparable<Estudiante> {
@@ -8,7 +9,7 @@ public class Estudiante implements Comparable<Estudiante> {
     private int respuestasCorrectas;
     private int nota;
 
-    public Estudiante(int r, int i){ 
+    public Estudiante(int r, int i) {
         id = i;
         examen = new ArrayList<>(r);
         entrego = false;
@@ -16,27 +17,26 @@ public class Estudiante implements Comparable<Estudiante> {
         nota = respuestasCorrectas / r;
     }
 
-    public void añadirRespuesta(int e, int o, ArrayList<Integer> canon ){
+    public void añadirRespuesta(int e, int o, ArrayList<Integer> canon) {
         examen.set(e, o);
-        if(canon.get(e) == o){ 
+        if (canon.get(e) == o) {
             respuestasCorrectas++;
         }
     }
 
     @Override
-        public int compareTo(Estudiante e) {
+    public int compareTo(Estudiante e) {
         // no entregó primero
-            if (this.entrego != e.entrego) {
-                return this.entrego ? 1 : -1;
-            }
-
-        //menor nota primero
-            if (this.nota != e.nota) {
-                return Integer.compare(this.nota, e.nota);
-            }
-
-        //menor id primero
-            return Integer.compare(this.id, e.id);
+        if (this.entrego != e.entrego) {
+            return this.entrego ? 1 : -1;
         }
-}
 
+        // menor nota primero
+        if (this.nota != e.nota) {
+            return Integer.compare(this.nota, e.nota);
+        }
+
+        // menor id primero
+        return Integer.compare(this.id, e.id);
+    }
+}

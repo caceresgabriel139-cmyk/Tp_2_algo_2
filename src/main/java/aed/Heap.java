@@ -1,78 +1,85 @@
 package aed;
+
 import java.util.ArrayList;
 
 public class Heap<T extends Comparable<T>> {
-    private ArrayList<T> elementos;
-    
+    private ArrayList<Nodo> elementos;
+
     private class Nodo {
         int indice;
         T valor;
 
-        public Nodo(T e) {
+        public Nodo(T e, int i) {
             this.valor = e;
+            this.indice = i;
         }
     }
 
+    public Heap() {
+        elementos = new ArrayList<>();
+    }
+
     public class HeapHandle implements Handle<T> {
-        private Nodo nodoApuntado ;
-        private HeapHandle( Nodo n) {
-            this.nodoApuntado = n ;
+        private Nodo nodoApuntado;
+
+        private HeapHandle(Nodo n) {
+            this.nodoApuntado = n;
         }
+
         @Override
-        public T valor () {
-            return nodoApuntado.valor ;
-        }
-        @Override
-        public void eliminar () {
-            //TODO Implementar la eliminación del nodo del heap
+        public T valor() {
+            return nodoApuntado.valor;
         }
     }
-    
-    public HeapHandle agregar(T elem){
-        public HeapHandle agregar(T elem) {
+
+    public HeapHandle agregar(T elem) {
         Nodo nuevoNodo = new Nodo(elem, elementos.size());
         elementos.add(nuevoNodo);
         siftUp(nuevoNodo.indice);
         return new HeapHandle(nuevoNodo);
     }
+
+    public int hijoDerecho(int i) {
+        return 2 * i + 2;
     }
-    
-    public int hijoDerecho(int i){
-        return 2*i+2;
+
+    public int hijoIzquierdo(int i) {
+        return 2 * i + 1;
     }
-    public int hijoIzquierdo(int i){
-        return 2*i+1;
+
+    public int padre(int i) {
+        return (i - 1) / 2;
     }
-    
-    public int padre(int i){
-        return (i-1)/2; 
-    }
-    // actualiza el heap despues de una modificacion 
-    public void heapify() {
-        for (int i = padre(elementos.size()-1); i >= 0; i--) {
-            siftDown(i);
-        }   
+
+    // actualiza el heap despues de una modificacion
+    public void actualizar(HeapHandle handle, T nuevoValor) {
+        Nodo n = handle.nodoApuntado;
+        n.valor = nuevoValor;
+        siftUp(n.indice);
+        siftDown(n.indice);
     }
 
     // agarra a un estdiante y lo sube lo maximo que puede
-    private void siftUp(int i){
-        if (i == 0) return;
-        int padre = padre(i);
-        if (elementos.get(i).compareTo(elementos.get(padre)) < 0) {
-            swap(i, padre);
-            siftUp(padre); 
+    private void siftUp(int i) {
+        if (i == 0)
+            return;
+        int p = padre(i);
+
+        if (elementos.get(i).valor.compareTo(elementos.get(p).valor) < 0) {
+            swap(i, p);
+            siftUp(p);
         }
     }
 
     // agarra a un estudiante y lo baja lo maximo que puede
-    private void siftDown(int i){
+    private void siftDown(int i) {
         int izq = hijoIzquierdo(i);
         int der = hijoDerecho(i);
         int menor = i;
-        if (izq < elementos.size() && elementos.get(izq).compareTo(elementos.get(menor)) < 0) {
+        if (izq < elementos.size() && elementos.get(izq).valor.compareTo(elementos.get(menor).valor) < 0) {
             menor = izq;
         }
-        if (der < elementos.size() && elementos.get(der).compareTo(elementos.get(menor)) < 0) {
+        if (der < elementos.size() && elementos.get(der).valor.compareTo(elementos.get(menor).valor) < 0) {
             menor = der;
         }
         if (menor != i) {
@@ -80,15 +87,29 @@ public class Heap<T extends Comparable<T>> {
             siftDown(menor);
         }
     }
-    public T sacarRaiz(){
+
+    // Reemplaza el primer elemento con la última hoja y eliminar la última hoja,
+    // baja la nueva raiz y devuelve el valor de la anterior raiz
+    public T desencolar() {
+        if (elementos.size() == 0)
+            return null;
+        Nodo raiz = elementos.get(0);
+        T valor = raiz.valor;
+        Nodo ultimo = elementos.remove(elementos.size() - 1);
+        if (!elementos.isEmpty()) {
+            elementos.set(0, ultimo);
+            ultimo.indice = 0;
+            siftDown(0);
+        }
+        return valor;
     }
 
     // intercambia los estudiantes uno a unno
     private void swap(int i, int j) {
         Nodo ni = elementos.get(i);
         Nodo nj = elementos.get(j);
-        heap.set(i, nj);
-        heap.set(j, ni);
+        elementos.set(i, nj);
+        elementos.set(j, ni);
         ni.indice = j;
         nj.indice = i;
     }

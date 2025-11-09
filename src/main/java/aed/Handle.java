@@ -1,6 +1,6 @@
 package aed;
 
-interface Handle <T >  {
+interface Handle <T>  {
     
     public T valor () ;
 

@@ -24,19 +24,19 @@ public class Estudiante implements Comparable<Estudiante> {
     }
 
     @Override
-    public int compareTo(Estudiante e) {
-        // Primero: los que no entregaron van primero
-        if (this.entrego != e.entrego) {
-            return this.entrego ? 1 : -1;
-        }
+        public int compareTo(Estudiante e) {
+        // no entregó primero
+            if (this.entrego != e.entrego) {
+                return this.entrego ? 1 : -1;
+            }
 
-        // Luego: mayor nota primero
-        if (this.nota != e.nota) {
-            return Integer.compare(e.nota, this.nota);
-        }
+        //menor nota primero
+            if (this.nota != e.nota) {
+                return Integer.compare(this.nota, e.nota);
+            }
 
-        // Finalmente: menor id primero (para desempatar)
-        return Integer.compare(this.id, e.id);
-    }
+        //menor id primero
+            return Integer.compare(this.id, e.id);
+        }
 }
 

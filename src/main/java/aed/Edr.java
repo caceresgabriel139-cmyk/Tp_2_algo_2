@@ -2,12 +2,15 @@ package aed;
 import java.util.ArrayList;
 
 public class Edr {
-    private ArrayList<Handle> estudiantes;
+    private ArrayList<Handle<Estudiante>> estudiantes;
     private Heap<Estudiante> estudiantesPorNota;
     private ArrayList<Integer> examenCanonico;
     private int ladoAula;
     private int estudiantesSinEntregar;
     private boolean[] copionesPorId;
+
+//-------------------------------------------------NUEVO EDR--------------------------------------------------------------------------
+
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico) {
         throw new UnsupportedOperationException("Sin implementar");

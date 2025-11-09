@@ -24,7 +24,7 @@ public class Heap<T extends Comparable<T>> {
         }
         @Override
         public void eliminar () {
-            // TODO Implementar la eliminación del nodo del heap
+            //TODO Implementar la eliminación del nodo del heap
         }
     }
     

@@ -30,11 +30,11 @@ public class Heap<T extends Comparable<T>> {
     
     public HeapHandle agregar(T elem){
         public HeapHandle agregar(T elem) {
-    Nodo nuevoNodo = new Nodo(elem, elementos.size());
-    elementos.add(nuevoNodo);
-    siftUp(nuevoNodo.indice);
-    return new HeapHandle(nuevoNodo);
-}
+        Nodo nuevoNodo = new Nodo(elem, elementos.size());
+        elementos.add(nuevoNodo);
+        siftUp(nuevoNodo.indice);
+        return new HeapHandle(nuevoNodo);
+    }
     }
     
     public int hijoDerecho(int i){

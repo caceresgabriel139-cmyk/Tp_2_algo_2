@@ -10,32 +10,50 @@ public class Edr {
     private int estudiantesSinEntregar;
     private boolean[] copionesPorId;
 
-    // -------------------------------------------------NUEVO_EDR----------------------------------------------------------------
+// -------------------------------------------------NUEVO_EDR------------------------------------------------- //
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico) {
-        throw new UnsupportedOperationException("Sin implementar");
+
+        ArrayList<Handle<Estudiante>> nuevosEstudiantesArray = new ArrayList<>(Cant_estudiantes);
+        Heap<Estudiante> nuevosEstudiantesHeap = new Heap<>(Cant_estudiantes);
+
+        for (int i = 0; i < Cant_estudiantes; i++){
+        Estudiante e = new Estudiante(ExamenCanonico.length, i);
+        nuevosEstudiantesArray.add(nuevosEstudiantesHeap.agregar(e));
+        }
+
+        estudiantes = nuevosEstudiantesArray;
+        estudiantesPorNota = nuevosEstudiantesHeap;
+        ladoAula = LadoAula;
+        estudiantesSinEntregar = Cant_estudiantes;
+        copionesPorId = new boolean[Cant_estudiantes];
+
+        ArrayList<Integer> examenCanon = new ArrayList<>(ExamenCanonico.length);
+        for (int k = 0; k < ExamenCanonico.length; k++){
+            examenCanon.add(ExamenCanonico[k]);
+        }
+        examenCanonico = examenCanon;
     }
 
-    // -------------------------------------------------NOTAS--------------------------------------------------------------------------
+// -------------------------------------------------NOTAS------------------------------------------------- //
 
     public double[] notas() {
         throw new UnsupportedOperationException("Sin implementar");
     }
 
-    // ------------------------------------------------COPIARSE------------------------------------------------------------------------
+    // -------------------------------------------------COPIARSE-------------------------------------------------
 
     public void copiarse(int estudiante) {
         throw new UnsupportedOperationException("Sin implementar");
     }
 
-    // -----------------------------------------------RESOLVER----------------------------------------------------------------
+    // -------------------------------------------------RESOLVER-------------------------------------------------
 
     public void resolver(int estudiante, int NroEjercicio, int res) {
         throw new UnsupportedOperationException("Sin implementar");
     }
 
-    // ------------------------------------------------CONSULTAR DARK
-    // WEB-------------------------------------------------------
+    // -------------------------------------------------CONSULTAR DARKWEB-------------------------------------------------
 
     public void consultarDarkWeb(int n, int[] examenDW) {
         throw new UnsupportedOperationException("Sin implementar");

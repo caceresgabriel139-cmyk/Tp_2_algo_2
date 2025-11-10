@@ -11,7 +11,12 @@ public class Estudiante implements Comparable<Estudiante> {
 
     public Estudiante(int r, int i) {
         id = i;
+
         examen = new ArrayList<>(r);
+        for (int j = 0; j < r; j++){
+            examen.add(-1);
+        }
+
         entrego = false;
         respuestasCorrectas = 0;
         nota = respuestasCorrectas / r;

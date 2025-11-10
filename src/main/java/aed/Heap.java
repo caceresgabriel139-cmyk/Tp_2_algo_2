@@ -15,8 +15,8 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
-    public Heap() {
-        elementos = new ArrayList<>();
+    public Heap(int c) {
+        elementos = new ArrayList<>(c);
     }
 
     public class HeapHandle implements Handle<T> {
@@ -92,7 +92,7 @@ public class Heap<T extends Comparable<T>> {
     // baja la nueva raiz y devuelve el valor de la anterior raiz
     public T desencolar() {
         if (elementos.size() == 0)
-            return null;
+            {return null;}
         Nodo raiz = elementos.get(0);
         T valor = raiz.valor;
         Nodo ultimo = elementos.remove(elementos.size() - 1);

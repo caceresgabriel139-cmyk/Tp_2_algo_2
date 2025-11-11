@@ -139,13 +139,33 @@ public class Edr {
 // -------------------------------------------------CONSULTAR DARKWEB------------------------------------------------- //
 
     public void consultarDarkWeb(int n, int[] examenDW) {
-        throw new UnsupportedOperationException("Sin implementar");
+        
+        Estudiante est;
+        ArrayList<Estudiante> modificados = new ArrayList<>();
+        for (int i=0;i<n;i++){
+            est=estudiantesPorNota.desencolar();
+            if(est.entrego()==false){
+            est.cambiarExamen(examenDW,examenCanonico);
+            modificados.add(est);
+            }else{
+            i=n;    
+            }
+        }
+        for (int i=0;i<modificados.size();i++){
+        estudiantesPorNota.agregar(modificados.get(i));
+        }    
+        
     }
 
 // -------------------------------------------------ENTREGAR------------------------------------------------- //
 
     public void entregar(int estudiante) {
-        throw new UnsupportedOperationException("Sin implementar");
+        Handle<Estudiante> handle = estudiantes.get(estudiante);
+        Estudiante est = handle.valor();
+        estudiantes.get(estudiante).valor().entregar();
+        estudiantesPorNota.actualizar(handle, est);
+        estudiantesSinEntregar=estudiantesSinEntregar-1;
+        
     }
 
 // -------------------------------------------------CORREGIR------------------------------------------------- //

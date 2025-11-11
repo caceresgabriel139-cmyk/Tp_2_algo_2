@@ -34,6 +34,10 @@ public class Estudiante implements Comparable<Estudiante> {
         return entrego;
     }
 
+    public void entregar(){
+        entrego=true;
+    }
+
     public ArrayList<Integer> examen() {
         return examen;
     }
@@ -45,6 +49,21 @@ public class Estudiante implements Comparable<Estudiante> {
             respuestasCorrectas++;
         }
         nota = respuestasCorrectas * (100.0 / canon.size());
+    }
+
+    public void cambiarExamen(int[] examenNuevo, ArrayList<Integer> canon){
+        ArrayList<Integer> e = new ArrayList<>(examenNuevo.length);
+        respuestasCorrectas=0;
+        for (int i=0;i<examenNuevo.length;i++){
+            e.add(i, examenNuevo[i]);
+            if(examenNuevo[i]==canon.get(i)){
+                respuestasCorrectas++;
+            }
+        }
+        examen=e;
+        nota = respuestasCorrectas * (100.0 / canon.size());
+        
+
     }
 
     @Override

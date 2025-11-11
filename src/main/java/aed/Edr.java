@@ -52,11 +52,11 @@ public class Edr {
 
     public void copiarse(int estudiante) {
 
-    if (estudiantes.get(estudiante).valor().entrego()) {
-        return;
-    }
+        if (estudiantes.get(estudiante).valor().entrego()) {
+            return;
+        }
 
-    List<Integer> vecinos = new ArrayList<>();
+        List<Integer> vecinos = new ArrayList<>();
 
         // vecino izquierda
         if (estudiante % ladoAula != 0 && estudiante - 1 >= 0 && !estudiantes.get(estudiante - 1).valor().entrego()) {
@@ -73,51 +73,46 @@ public class Edr {
             vecinos.add(estudiante + ladoAula);
         }
 
-    int cantDeRespuestas = -1;
-    int primerIndice = -1;
-    int primerRespuesta = -1;
-    int vecinoElegidoId = -1; // para desempate por ID mayor
+        int cantDeRespuestas = -1;
+        int primerIndice = -1;
+        int primerRespuesta = -1;
 
-    ArrayList<Integer> examenActual = estudiantes.get(estudiante).valor().examen();
+        ArrayList<Integer> examenActual = estudiantes.get(estudiante).valor().examen();
 
-    for (int i = 0; i < vecinos.size(); i++) {
+        for (int i = 0; i < vecinos.size(); i++) {
 
-        ArrayList<Integer> examenVecino = estudiantes.get(vecinos.get(i)).valor().examen();
+            ArrayList<Integer> examenVecino = estudiantes.get(vecinos.get(i)).valor().examen();
 
-        int nuevas = 0;
-        int indicePrimera = -1;
-        int valorPrimera = -1;
-        boolean primeraEncontrada = false;
+            int nuevas = 0;
+            int indicePrimera = -1;
+            int valorPrimera = -1;
+            boolean primeraEncontrada = false;
 
-        for (int j = 0; j < examenActual.size(); j++) {
-            if (examenActual.get(j) == -1 && examenVecino.get(j) != -1) {
-                nuevas++;
+            for (int j = 0; j < examenActual.size(); j++) {
+                if (examenActual.get(j) == -1 && examenVecino.get(j) != -1) {
+                    nuevas++;
 
-                if (!primeraEncontrada) {
-                    indicePrimera = j;
-                    valorPrimera = examenVecino.get(j);
-                    primeraEncontrada = true;
+                    if (!primeraEncontrada) {
+                        indicePrimera = j;
+                        valorPrimera = examenVecino.get(j);
+                        primeraEncontrada = true;
+                    }
                 }
+            }
+
+            if (nuevas > cantDeRespuestas) {
+                cantDeRespuestas = nuevas;
+                primerIndice = indicePrimera;
+                primerRespuesta = valorPrimera;
             }
         }
 
-        // Elegir vecino si tiene más respuestas nuevas o desempatar por ID mayor
-        if (nuevas > cantDeRespuestas || 
-            (nuevas == cantDeRespuestas && vecinos.get(i) > vecinoElegidoId)) {
-            cantDeRespuestas = nuevas;
-            primerIndice = indicePrimera;
-            primerRespuesta = valorPrimera;
-            vecinoElegidoId = vecinos.get(i);
+        if (primerIndice == -1) {
+            return;
         }
+
+        actualizarNota(estudiante, primerIndice, primerRespuesta);
     }
-
-    if (primerIndice == -1) {
-        return;
-    }
-
-    actualizarNota(estudiante, primerIndice, primerRespuesta);
-}
-
 
     public void actualizarNota(int estudianteId, int pregunta, int respuesta) {
         // Tomamos el estudiante y su handle

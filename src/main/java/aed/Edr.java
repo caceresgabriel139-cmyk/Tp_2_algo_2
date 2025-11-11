@@ -137,9 +137,26 @@ public class Edr {
     }
 
 // -------------------------------------------------CONSULTAR DARKWEB------------------------------------------------- //
+/*
+consultarDarkWeb: 
+Se calcula la nota del examen modelo de la Darkweb O(R)
+Sacar los primeros k que no entregaron del heap O(K) y reheapifica O(K * log E)
+Por cada uno, reemplaza su examen O(1) y le asigna EL examen modelo DarkWeb O(1)
+Complejidad Total: O(K (R + log E) )
 
-    public void consultarDarkWeb(int n, int[] examenDW) {
-        throw new UnsupportedOperationException("Sin implementar");
+*/
+
+    public void consultarDarkWeb(int k, int[] examenDW) {
+        for (int i = 0; i < k; i++){
+            reemplazarDW(i, examenDW, examenCanonico);
+        }
+    }
+
+    public void reemplazarDW(int id, int[] examenDarkWeb, ArrayList<Integer> examenCanon) {
+        for (int i = 0; i < examenCanon.size();i++){
+            
+            actualizarNota(id, i, examenDarkWeb[i]);
+        }
     }
 
 // -------------------------------------------------ENTREGAR------------------------------------------------- //
@@ -161,3 +178,4 @@ public class Edr {
         throw new UnsupportedOperationException("Sin implementar");
     }
 }
+

@@ -52,62 +52,72 @@ public class Edr {
 
     public void copiarse(int estudiante) {
 
-        if (estudiantes.get(estudiante).valor().entrego()) {
-            return;
+    if (estudiantes.get(estudiante).valor().entrego()) {
+        return;
+    }
+
+    List<Integer> vecinos = new ArrayList<>();
+
+        // vecino izquierda
+        if (estudiante % ladoAula != 0 && estudiante - 1 >= 0 && !estudiantes.get(estudiante - 1).valor().entrego()) {
+            vecinos.add(estudiante - 1);
         }
 
-        List<Integer> vecinos = new ArrayList<>();
-
-        if (estudiante - ladoAula >= 0 && !estudiantes.get(estudiante - ladoAula).valor().entrego()) {
-            vecinos.add(estudiante - ladoAula);
-        }
-        if (estudiante + ladoAula < estudiantes.size() && !estudiantes.get(estudiante + ladoAula).valor().entrego()) {
-            vecinos.add(estudiante + ladoAula);
-        }
-        if ((estudiante + 1) % ladoAula != 0 && !estudiantes.get(estudiante + 1).valor().entrego()) {
+        // vecino derecha
+        if ((estudiante + 1) % ladoAula != 0 && estudiante + 1 < estudiantes.size() && !estudiantes.get(estudiante + 1).valor().entrego()) {
             vecinos.add(estudiante + 1);
         }
 
-        int cantDeRespuestas = -1;
-        int primerIndice = -1;
-        int primerRespuesta = -1;
+        // vecino abajo
+        if (estudiante + ladoAula < estudiantes.size() && !estudiantes.get(estudiante + ladoAula).valor().entrego()) {
+            vecinos.add(estudiante + ladoAula);
+        }
 
-        ArrayList<Integer> examenActual = estudiantes.get(estudiante).valor().examen();
+    int cantDeRespuestas = -1;
+    int primerIndice = -1;
+    int primerRespuesta = -1;
+    int vecinoElegidoId = -1; // para desempate por ID mayor
 
-        for (int i = 0; i < vecinos.size(); i++) {
+    ArrayList<Integer> examenActual = estudiantes.get(estudiante).valor().examen();
 
-            ArrayList<Integer> examenVecino = estudiantes.get(vecinos.get(i)).valor().examen();
+    for (int i = 0; i < vecinos.size(); i++) {
 
-            int nuevas = 0;
-            int indicePrimera = -1;
-            int valorPrimera = -1;
-            boolean primeraEncontrada = false;
+        ArrayList<Integer> examenVecino = estudiantes.get(vecinos.get(i)).valor().examen();
 
-            for (int j = 0; j < examenActual.size(); j++) {
-                if (examenActual.get(j) == -1 && examenVecino.get(j) != -1) {
-                    nuevas++;
+        int nuevas = 0;
+        int indicePrimera = -1;
+        int valorPrimera = -1;
+        boolean primeraEncontrada = false;
 
-                    if (!primeraEncontrada) {
-                        indicePrimera = j;
-                        valorPrimera = examenVecino.get(j);
-                        primeraEncontrada = true;
-                    }
+        for (int j = 0; j < examenActual.size(); j++) {
+            if (examenActual.get(j) == -1 && examenVecino.get(j) != -1) {
+                nuevas++;
+
+                if (!primeraEncontrada) {
+                    indicePrimera = j;
+                    valorPrimera = examenVecino.get(j);
+                    primeraEncontrada = true;
                 }
             }
-
-            if (nuevas > cantDeRespuestas) {
-                cantDeRespuestas = nuevas;
-                primerIndice = indicePrimera;
-                primerRespuesta = valorPrimera;
-            }
         }
 
-        if (primerIndice == -1) {
-            return;
+        // Elegir vecino si tiene más respuestas nuevas o desempatar por ID mayor
+        if (nuevas > cantDeRespuestas || 
+            (nuevas == cantDeRespuestas && vecinos.get(i) > vecinoElegidoId)) {
+            cantDeRespuestas = nuevas;
+            primerIndice = indicePrimera;
+            primerRespuesta = valorPrimera;
+            vecinoElegidoId = vecinos.get(i);
         }
-
-        actualizarNota(estudiante, primerIndice, primerRespuesta);
     }
+
+    if (primerIndice == -1) {
+        return;
+    }
+
+    actualizarNota(estudiante, primerIndice, primerRespuesta);
+}
+
 
     public void actualizarNota(int estudianteId, int pregunta, int respuesta) {
         // Tomamos el estudiante y su handle
@@ -133,21 +143,22 @@ public class Edr {
         throw new UnsupportedOperationException("Sin implementar");
     }
 
-    // -------------------------------------------------ENTREGAR-------------------------------------------------------------
+// -------------------------------------------------ENTREGAR------------------------------------------------- //
 
     public void entregar(int estudiante) {
         throw new UnsupportedOperationException("Sin implementar");
     }
 
-    // -----------------------------------------------------CORREGIR---------------------------------------------------------
+// -------------------------------------------------CORREGIR------------------------------------------------- //
 
     public NotaFinal[] corregir() {
         throw new UnsupportedOperationException("Sin implementar");
     }
 
+// -------------------------------------------------CHEQUEAR COPIAS------------------------------------------------- //
+
+
     public int[] chequearCopias() {
         throw new UnsupportedOperationException("Sin implementar");
     }
 }
-
-// proc calcularNota(), calcula la nota de un examen unico

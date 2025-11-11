@@ -7,7 +7,7 @@ public class Estudiante implements Comparable<Estudiante> {
     private ArrayList<Integer> examen;
     private boolean entrego;
     private int respuestasCorrectas;
-    private int nota;
+    private double nota;
 
     public Estudiante(int r, int i) {
         id = i;
@@ -19,10 +19,10 @@ public class Estudiante implements Comparable<Estudiante> {
 
         entrego = false;
         respuestasCorrectas = 0;
-        nota = respuestasCorrectas / r;
+        nota = 0;
     }
 
-    public int nota() {
+    public double nota() {
         return nota;
     }
 
@@ -44,6 +44,7 @@ public class Estudiante implements Comparable<Estudiante> {
         if (canon.get(e) == o) {
             respuestasCorrectas++;
         }
+        nota = respuestasCorrectas * (100.0 / canon.size());
     }
 
     @Override
@@ -55,7 +56,7 @@ public class Estudiante implements Comparable<Estudiante> {
 
         // menor nota primero
         if (this.nota != e.nota) {
-            return Integer.compare(this.nota, e.nota);
+            return Double.compare(this.nota, e.nota);
         }
 
         // menor id primero

@@ -22,6 +22,23 @@ public class Estudiante implements Comparable<Estudiante> {
         nota = respuestasCorrectas / r;
     }
 
+    public int nota() {
+        return nota;
+    }
+
+    public int id() {
+        return id;
+    }
+
+    public boolean entrego() {
+        return entrego;
+    }
+
+    public ArrayList<Integer> examen() {
+        return examen;
+    }
+
+
     public void añadirRespuesta(int e, int o, ArrayList<Integer> canon) {
         examen.set(e, o);
         if (canon.get(e) == o) {

@@ -1,6 +1,7 @@
 package aed;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Edr {
     private ArrayList<Handle<Estudiante>> estudiantes;
@@ -38,13 +39,76 @@ public class Edr {
 // -------------------------------------------------NOTAS------------------------------------------------- //
 
     public double[] notas() {
-        throw new UnsupportedOperationException("Sin implementar");
+        double[] notasPorId = new double[estudiantes.size()];
+
+        for(int i = 0; i < estudiantes.size(); i++){
+            notasPorId[i] = estudiantes.get(i).valor().nota();
+        }
+
+        return notasPorId;
     }
 
-    // -------------------------------------------------COPIARSE-------------------------------------------------
+// -------------------------------------------------COPIARSE------------------------------------------------- //
 
     public void copiarse(int estudiante) {
-        throw new UnsupportedOperationException("Sin implementar");
+
+        if (estudiantes.get(estudiante).valor().entrego()) {
+            return;
+        }
+
+        List<Integer> vecinos = new ArrayList<>();
+
+        if (estudiante - ladoAula >= 0 && !estudiantes.get(estudiante - ladoAula).valor().entrego()) {
+            vecinos.add(estudiante - ladoAula);
+        }
+        if (estudiante + ladoAula < estudiantes.size() && !estudiantes.get(estudiante + ladoAula).valor().entrego()) {
+            vecinos.add(estudiante + ladoAula);
+        }
+        if ((estudiante + 1) % ladoAula != 0 && !estudiantes.get(estudiante + 1).valor().entrego()) {
+            vecinos.add(estudiante + 1);
+        }
+
+        int cantDeRespuestas = -1;
+        int primerIndice = -1;
+        int primerRespuesta = -1;
+
+        ArrayList<Integer> examenActual = estudiantes.get(estudiante).valor().examen();
+
+        for (int i = 0; i < vecinos.size(); i++) {
+
+            ArrayList<Integer> examenVecino = estudiantes.get(vecinos.get(i)).valor().examen();
+
+            int nuevas = 0;
+            int indicePrimera = -1;
+            int valorPrimera = -1;
+            boolean primeraEncontrada = false;
+
+            for (int j = 0; j < examenActual.size(); j++) {
+                if (examenActual.get(j) == -1 && examenVecino.get(j) != -1) {
+                    nuevas++;
+
+                    if (!primeraEncontrada) {
+                        indicePrimera = j;
+                        valorPrimera = examenVecino.get(j);
+                        primeraEncontrada = true;
+                    }
+                }
+            }
+
+            if (nuevas > cantDeRespuestas) {
+                cantDeRespuestas = nuevas;
+                primerIndice = indicePrimera;
+                primerRespuesta = valorPrimera;
+            }
+        }
+
+        if (primerIndice == -1) {
+            return;
+        }
+
+        estudiantes.get(estudiante).valor().añadirRespuesta(primerIndice, primerRespuesta, examenCanonico);
+
+        estudiantesPorNota.actualizar(estudiantes.get(estudiante), estudiantes.get(estudiante).valor());
     }
 
     // -------------------------------------------------RESOLVER-------------------------------------------------

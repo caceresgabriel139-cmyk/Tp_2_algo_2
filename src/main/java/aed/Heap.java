@@ -52,12 +52,13 @@ public class Heap<T extends Comparable<T>> {
     }
 
     // actualiza el heap despues de una modificacion
-    public void actualizar(HeapHandle handle, T nuevoValor) {
-        Nodo n = handle.nodoApuntado;
+    public void actualizar(Handle<T> handle, T nuevoValor) {
+        HeapHandle h = (HeapHandle) handle;
+        Nodo n = h.nodoApuntado;
         n.valor = nuevoValor;
-        siftUp(n.indice);
         siftDown(n.indice);
-    }
+}
+
 
     // agarra a un estdiante y lo sube lo maximo que puede
     private void siftUp(int i) {

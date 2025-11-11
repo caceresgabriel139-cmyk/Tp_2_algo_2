@@ -57,20 +57,24 @@ public class Edr {
         }
 
         List<Integer> vecinos = new ArrayList<>();
+        int alumnosPorFila = (ladoAula + 1) / 2; // cantidad de estudiantes por fila, contando el asiento vacío
+
+        int fila = estudiante / alumnosPorFila;
+        int col  = estudiante % alumnosPorFila;
 
         // vecino izquierda
-        if (estudiante % ladoAula != 0 && estudiante - 1 >= 0 && !estudiantes.get(estudiante - 1).valor().entrego()) {
+        if (col > 0 && !estudiantes.get(estudiante - 1).valor().entrego()) {
             vecinos.add(estudiante - 1);
         }
 
         // vecino derecha
-        if ((estudiante + 1) % ladoAula != 0 && estudiante + 1 < estudiantes.size() && !estudiantes.get(estudiante + 1).valor().entrego()) {
+        if (col < alumnosPorFila - 1 && estudiante + 1 < estudiantes.size() && !estudiantes.get(estudiante + 1).valor().entrego()) {
             vecinos.add(estudiante + 1);
         }
 
-        // vecino abajo
-        if (estudiante + ladoAula < estudiantes.size() && !estudiantes.get(estudiante + ladoAula).valor().entrego()) {
-            vecinos.add(estudiante + ladoAula);
+        // vecino arriba
+        if (fila > 0 && !estudiantes.get(estudiante - alumnosPorFila).valor().entrego()) {
+            vecinos.add(estudiante - alumnosPorFila);
         }
 
         int cantDeRespuestas = -1;

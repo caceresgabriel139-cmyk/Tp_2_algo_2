@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: aed.EdrTests
 -------------------------------------------------------------------------------
-Tests run: 14, Failures: 0, Errors: 11, Skipped: 0, Time elapsed: 1.635 s <<< FAILURE! - in aed.EdrTests
-aed.EdrTests.revisar_copias_examenes_incompletos  Time elapsed: 0.726 s  <<< ERROR!
+Tests run: 14, Failures: 1, Errors: 10, Skipped: 0, Time elapsed: 0.961 s <<< FAILURE! - in aed.EdrTests
+aed.EdrTests.revisar_copias_examenes_incompletos  Time elapsed: 0.385 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.entregar(Edr.java:149)
+	at aed.Edr.entregar(Edr.java:148)
 	at aed.EdrTests.revisar_copias_examenes_incompletos(EdrTests.java:164)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -76,9 +76,9 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.un_alumno_se_copia_de_la_darkweb  Time elapsed: 0.014 s  <<< ERROR!
+aed.EdrTests.un_alumno_se_copia_de_la_darkweb  Time elapsed: 0.01 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.consultarDarkWeb(Edr.java:143)
+	at aed.Edr.consultarDarkWeb(Edr.java:142)
 	at aed.EdrTests.un_alumno_se_copia_de_la_darkweb(EdrTests.java:443)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -150,9 +150,9 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.varios_alumnos_se_copian_de_varios_examenes  Time elapsed: 0.029 s  <<< ERROR!
+aed.EdrTests.varios_alumnos_se_copian_de_varios_examenes  Time elapsed: 0.012 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.consultarDarkWeb(Edr.java:143)
+	at aed.Edr.consultarDarkWeb(Edr.java:142)
 	at aed.EdrTests.varios_alumnos_se_copian_de_varios_examenes(EdrTests.java:520)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -224,9 +224,9 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.revisar_copias_examenes_completos  Time elapsed: 0.007 s  <<< ERROR!
+aed.EdrTests.revisar_copias_examenes_completos  Time elapsed: 0.008 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.entregar(Edr.java:149)
+	at aed.Edr.entregar(Edr.java:148)
 	at aed.EdrTests.revisar_copias_examenes_completos(EdrTests.java:114)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -298,9 +298,9 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.copias_de_exacto_25_porciento  Time elapsed: 0.012 s  <<< ERROR!
+aed.EdrTests.copias_de_exacto_25_porciento  Time elapsed: 0.004 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.entregar(Edr.java:149)
+	at aed.Edr.entregar(Edr.java:148)
 	at aed.EdrTests.copias_de_exacto_25_porciento(EdrTests.java:286)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -372,9 +372,9 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.no_hay_copiones  Time elapsed: 0.003 s  <<< ERROR!
+aed.EdrTests.no_hay_copiones  Time elapsed: 0.004 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.entregar(Edr.java:149)
+	at aed.Edr.entregar(Edr.java:148)
 	at aed.EdrTests.no_hay_copiones(EdrTests.java:206)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -446,9 +446,9 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.todos_copiones  Time elapsed: 0.009 s  <<< ERROR!
+aed.EdrTests.todos_copiones  Time elapsed: 0.003 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.entregar(Edr.java:149)
+	at aed.Edr.entregar(Edr.java:148)
 	at aed.EdrTests.todos_copiones(EdrTests.java:248)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -520,9 +520,9 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.varios_alumnos_se_copian_de_la_darkweb  Time elapsed: 0.009 s  <<< ERROR!
+aed.EdrTests.varios_alumnos_se_copian_de_la_darkweb  Time elapsed: 0.01 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.consultarDarkWeb(Edr.java:143)
+	at aed.Edr.consultarDarkWeb(Edr.java:142)
 	at aed.EdrTests.varios_alumnos_se_copian_de_la_darkweb(EdrTests.java:479)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -594,9 +594,9 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.alumnos_se_copian_una_vez  Time elapsed: 0.01 s  <<< ERROR!
+aed.EdrTests.alumnos_se_copian_una_vez  Time elapsed: 0.007 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.entregar(Edr.java:149)
+	at aed.Edr.entregar(Edr.java:148)
 	at aed.EdrTests.alumnos_se_copian_una_vez(EdrTests.java:336)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -668,10 +668,15 @@ java.lang.UnsupportedOperationException: Sin implementar
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-aed.EdrTests.alumnos_se_copian_mas_de_una_vez  Time elapsed: 0.008 s  <<< ERROR!
-java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.entregar(Edr.java:149)
-	at aed.EdrTests.alumnos_se_copian_mas_de_una_vez(EdrTests.java:415)
+aed.EdrTests.alumnos_se_copian_mas_de_una_vez  Time elapsed: 0.122 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:180)
+	at aed.EdrTests.alumnos_se_copian_mas_de_una_vez(EdrTests.java:405)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
@@ -744,7 +749,7 @@ java.lang.UnsupportedOperationException: Sin implementar
 
 aed.EdrTests.no_hay_aliasing_con_los_examenes_subidos  Time elapsed: 0.004 s  <<< ERROR!
 java.lang.UnsupportedOperationException: Sin implementar
-	at aed.Edr.consultarDarkWeb(Edr.java:143)
+	at aed.Edr.consultarDarkWeb(Edr.java:142)
 	at aed.EdrTests.no_hay_aliasing_con_los_examenes_subidos(EdrTests.java:572)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)

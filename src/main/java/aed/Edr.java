@@ -106,18 +106,28 @@ public class Edr {
             return;
         }
 
-        estudiantes.get(estudiante).valor().añadirRespuesta(primerIndice, primerRespuesta, examenCanonico);
-
-        estudiantesPorNota.actualizar(estudiantes.get(estudiante), estudiantes.get(estudiante).valor());
+        actualizarNota(estudiante, primerIndice, primerRespuesta);
     }
 
-    // -------------------------------------------------RESOLVER-------------------------------------------------
+    public void actualizarNota(int estudianteId, int pregunta, int respuesta) {
+        // Tomamos el estudiante y su handle
+        Handle<Estudiante> handle = estudiantes.get(estudianteId);
+        Estudiante est = handle.valor();
+
+        // Actualizamos el examen del estudiante
+        est.añadirRespuesta(pregunta, respuesta, examenCanonico);
+
+        // Reordenamos el heap según la nueva nota
+        estudiantesPorNota.actualizar(handle, est);
+}
+
+// -------------------------------------------------RESOLVER------------------------------------------------- //
 
     public void resolver(int estudiante, int NroEjercicio, int res) {
-        throw new UnsupportedOperationException("Sin implementar");
+        actualizarNota(estudiante, NroEjercicio, res);
     }
 
-    // -------------------------------------------------CONSULTAR DARKWEB-------------------------------------------------
+// -------------------------------------------------CONSULTAR DARKWEB------------------------------------------------- //
 
     public void consultarDarkWeb(int n, int[] examenDW) {
         throw new UnsupportedOperationException("Sin implementar");

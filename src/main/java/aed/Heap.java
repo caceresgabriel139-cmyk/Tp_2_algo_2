@@ -19,6 +19,10 @@ public class Heap<T extends Comparable<T>> {
         elementos = new ArrayList<>(c);
     }
 
+    public int Tamaño () {
+        return elementos.size();
+    }
+
     public class HeapHandle implements Handle<T> {
         private Nodo nodoApuntado;
 

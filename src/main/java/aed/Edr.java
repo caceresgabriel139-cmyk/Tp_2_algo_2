@@ -10,6 +10,7 @@ public class Edr {
     private int ladoAula;
     private int estudiantesSinEntregar;
     private boolean[] copionesPorId;
+    private boolean chequearonCopias;
 
 // -------------------------------------------------NUEVO_EDR------------------------------------------------- //
 
@@ -171,7 +172,23 @@ public class Edr {
 // -------------------------------------------------CORREGIR------------------------------------------------- //
 
     public NotaFinal[] corregir() {
-        throw new UnsupportedOperationException("Sin implementar");
+        Estudiante[] temp = new Estudiante [estudiantesPorNota.Tamaño()];
+        NotaFinal[] res = new NotaFinal[estudiantesPorNota.Tamaño()];
+        if (chequearonCopias == false){
+            return null;
+        }
+        while (estudiantesPorNota.Tamaño() > 0){
+            int i = 0;
+            Estudiante raizSacada = estudiantesPorNota.desencolar();
+            if (copionesPorId[i] == false) {
+            res[i] = (raizSacada.notaFinal());
+            }
+            temp[i] = raizSacada; i++;
+            }
+        for (int j = 0; j < temp.length; j++){
+            estudiantesPorNota.agregar(temp[j]);
+        }
+        return res;
     }
 
 // -------------------------------------------------CHEQUEAR COPIAS------------------------------------------------- //

@@ -81,4 +81,9 @@ public class Estudiante implements Comparable<Estudiante> {
         // menor id primero
         return Integer.compare(this.id, e.id);
     }
+
+    public NotaFinal notaFinal() {
+        NotaFinal res = new NotaFinal(this.nota, this.id);
+        return res;
+    }
 }

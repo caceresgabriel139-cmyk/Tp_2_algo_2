@@ -193,20 +193,6 @@ public class Edr {
 
 // -------------------------------------------------CHEQUEAR COPIAS------------------------------------------------- //
 
-/*
-chequearCopias:
-creamos un Array de arrays de longitud 10. Cada posición referencia 
-Hay que devolver una secuencia con todos los estudiantes sospechosos de haberse copiado 
-(Un/a estudiante sospechoso de haberse copiado es alguien que tiene cada respuesta de su examen igual 
-a al menos el 25 % de todos los estudiantes (sin contarlo a ´el/ella)). 
-Complejidad: O(E * R)
-
-un doble for de 0 hasta cant de estudiantes y de 0 a la cantidad de ejercicios, donde accede a cada item elegido de
-cada ejercicio y va sumando +1 en la posicion [e][i]
-(e ejercicio y i item en una array de arrays que lleve un conteo de la cantidad de veces que se eligió esa respuesta)
-
-*/
-
     public int[] chequearCopias() {
 
         ArrayList<ArrayList<Integer>> cantidadDeOpciones = new ArrayList<>(examenCanonico.size());

@@ -193,8 +193,66 @@ public class Edr {
 
 // -------------------------------------------------CHEQUEAR COPIAS------------------------------------------------- //
 
+/*
+chequearCopias:
+creamos un Array de arrays de longitud 10. Cada posición referencia 
+Hay que devolver una secuencia con todos los estudiantes sospechosos de haberse copiado 
+(Un/a estudiante sospechoso de haberse copiado es alguien que tiene cada respuesta de su examen igual 
+a al menos el 25 % de todos los estudiantes (sin contarlo a ´el/ella)). 
+Complejidad: O(E * R)
+
+un doble for de 0 hasta cant de estudiantes y de 0 a la cantidad de ejercicios, donde accede a cada item elegido de
+cada ejercicio y va sumando +1 en la posicion [e][i]
+(e ejercicio y i item en una array de arrays que lleve un conteo de la cantidad de veces que se eligió esa respuesta)
+
+*/
 
     public int[] chequearCopias() {
-        throw new UnsupportedOperationException("Sin implementar");
+
+        ArrayList<ArrayList<Integer>> cantidadDeOpciones = new ArrayList<>(examenCanonico.size());
+
+        for (int p = 0; p < examenCanonico.size(); p++) {
+            ArrayList<Integer> sub = new ArrayList<>(10);
+
+            for (int o = 0; o < 10; o++) {
+                sub.add(0);
+            }
+
+            for (int e = 0; e < estudiantes.size(); e++) {
+                int respuesta = estudiantes.get(e).valor().examen().get(p);
+                sub.set(respuesta, sub.get(respuesta) + 1);
+            }
+
+            cantidadDeOpciones.add(sub);
+        }
+
+        ArrayList<Integer> estudiantesCopiones = new ArrayList<>();
+
+        for (int e = 0; e < estudiantes.size(); e++) {
+
+            Estudiante estudiante = estudiantes.get(e).valor();
+            int copias = 0;
+
+            for (int r = 0; r < cantidadDeOpciones.size(); r++) {
+
+                int respuesta = estudiante.examen().get(r);
+                double porcentaje = (cantidadDeOpciones.get(r).get(respuesta) - 1) * 100.0 / (estudiantes.size() - 1);
+
+                if (porcentaje >= 25) {
+                    copias++;
+                }
+            }
+            if (copias == 10) {
+                estudiantesCopiones.add(e);
+            }
+            }
+
+            // Convertir a int[]
+            int[] copiones = new int[estudiantesCopiones.size()];
+            for (int i = 0; i < estudiantesCopiones.size(); i++) {
+                copiones[i] = estudiantesCopiones.get(i);
+            }
+
+            return copiones;
+        }
     }
-}

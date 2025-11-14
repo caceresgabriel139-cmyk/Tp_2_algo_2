@@ -14,15 +14,14 @@ public class Edr {
 
 // -------------------------------------------------NUEVO_EDR------------------------------------------------- //
 
-    public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico) {
-
-        ArrayList<Handle<Estudiante>> nuevosEstudiantesArray = new ArrayList<>(Cant_estudiantes);
+    public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico) { //O(E*R)
+        ArrayList<Handle<Estudiante>> nuevosEstudiantesArray = new ArrayList<>(Cant_estudiantes); // Inicializa un array vacio de estudiantes
         Heap<Estudiante> nuevosEstudiantesHeap = new Heap<>(Cant_estudiantes);
 
-        for (int i = 0; i < Cant_estudiantes; i++){
-        Estudiante e = new Estudiante(ExamenCanonico.length, i);
-        nuevosEstudiantesArray.add(nuevosEstudiantesHeap.agregar(e));
-        }
+        for (int i = 0; i < Cant_estudiantes; i++){ // Inicializa E cantidad de estudiantes y los va añadiendo al Heap
+            Estudiante e = new Estudiante(ExamenCanonico.length, i); // O(R) porque se tiene que crear un examen de R elementos como examen del estudiante
+            nuevosEstudiantesArray.add(nuevosEstudiantesHeap.agregar(e));
+        }// O(E*R) Porque se inicializan en orden por id y se meten ordenados al heap(porque ninguno entrego y la nota de todos es 0)
 
         estudiantes = nuevosEstudiantesArray;
         estudiantesPorNota = nuevosEstudiantesHeap;
@@ -30,28 +29,17 @@ public class Edr {
         estudiantesSinEntregar = Cant_estudiantes;
         copionesPorId = new boolean[Cant_estudiantes];
 
+        // Copia el examen canonico al atributo privado de la clase
         ArrayList<Integer> examenCanon = new ArrayList<>(ExamenCanonico.length);
         for (int k = 0; k < ExamenCanonico.length; k++){
             examenCanon.add(ExamenCanonico[k]);
-        }
+        } //O(R) ya que el examen canonico pasado por parametro tiene R posiciones
         examenCanonico = examenCanon;
-    }
-
-// -------------------------------------------------NOTAS------------------------------------------------- //
-
-    public double[] notas() {
-        double[] notasPorId = new double[estudiantes.size()];
-
-        for(int i = 0; i < estudiantes.size(); i++){
-            notasPorId[i] = estudiantes.get(i).valor().nota();
-        }
-
-        return notasPorId;
-    }
+    } //O(E*R) + O(R), como E*R > R queda O(E*R)
 
 // -------------------------------------------------COPIARSE------------------------------------------------- //
 
-    public void copiarse(int estudiante) {
+    public void copiarse(int estudiante) { // O(R + Log(E))
 
         if (estudiantes.get(estudiante).valor().entrego()) {
             return;
@@ -158,6 +146,18 @@ public class Edr {
         
     }
 
+// -------------------------------------------------NOTAS------------------------------------------------- //
+
+    public double[] notas() { //O(E)
+        double[] notasPorId = new double[estudiantes.size()];
+
+        for(int i = 0; i < estudiantes.size(); i++){ //Recorre el array de estudiantes por id -> O(E)
+            notasPorId[i] = estudiantes.get(i).valor().nota();  // Accede a la nota del estudiante ->O(1)
+        }
+
+        return notasPorId;
+    } 
+
 // -------------------------------------------------ENTREGAR------------------------------------------------- //
 
     public void entregar(int estudiante) {
@@ -206,6 +206,11 @@ public class Edr {
 
             for (int e = 0; e < estudiantes.size(); e++) {
                 int respuesta = estudiantes.get(e).valor().examen().get(p);
+
+                if (respuesta == -1) {
+                    continue;
+                }
+
                 sub.set(respuesta, sub.get(respuesta) + 1);
             }
 
@@ -222,16 +227,23 @@ public class Edr {
             for (int r = 0; r < cantidadDeOpciones.size(); r++) {
 
                 int respuesta = estudiante.examen().get(r);
+
+                // ignorar respuestas sin contestar (-1)
+                if (respuesta == -1) {
+                    continue;
+                }
+
                 double porcentaje = (cantidadDeOpciones.get(r).get(respuesta) - 1) * 100.0 / (estudiantes.size() - 1);
 
                 if (porcentaje >= 25) {
                     copias++;
                 }
             }
+
             if (copias == 10) {
                 estudiantesCopiones.add(e);
             }
-            }
+        }
 
             // Convertir a int[]
             int[] copiones = new int[estudiantesCopiones.size()];
@@ -239,6 +251,7 @@ public class Edr {
                 copiones[i] = estudiantesCopiones.get(i);
             }
 
+            chequearonCopias = true;
             return copiones;
         }
     }

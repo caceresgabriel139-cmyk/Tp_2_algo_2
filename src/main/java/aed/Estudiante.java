@@ -9,6 +9,7 @@ public class Estudiante implements Comparable<Estudiante> {
     private int respuestasCorrectas;
     private double nota;
 
+    //se inicializa un estudiante con examen en blanco
     public Estudiante(int r, int i) {
         id = i;
 
@@ -22,6 +23,7 @@ public class Estudiante implements Comparable<Estudiante> {
         nota = 0;
     }
 
+    //Consultar los atributos del estudiante
     public double nota() {
         return nota;
     }
@@ -43,14 +45,18 @@ public class Estudiante implements Comparable<Estudiante> {
     }
 
 
-    public void añadirRespuesta(int e, int o, ArrayList<Integer> canon) {
-        examen.set(e, o);
-        if (canon.get(e) == o) {
+    // Modifica el examen de un estudiante con la respuesta pasada por parametro
+    // El ejercicio al que se le asigna la respuesta es pasada por parametro
+    // Si la respuesta coincide con la del examen canonico suma el puntaje
+    public void añadirRespuesta(int ejercicio, int respuesta, ArrayList<Integer> canon) {
+        examen.set(ejercicio, respuesta);
+        if (canon.get(ejercicio) == respuesta) {
             respuestasCorrectas++;
         }
         nota = respuestasCorrectas * (100.0 / canon.size());
     }
 
+    // Intercambia el examen del estudiante por un examen pasado por parametro y recalcula la nota
     public void cambiarExamen(int[] examenNuevo, ArrayList<Integer> canon){
         ArrayList<Integer> e = new ArrayList<>(examenNuevo.length);
         respuestasCorrectas=0;
@@ -66,6 +72,7 @@ public class Estudiante implements Comparable<Estudiante> {
 
     }
 
+    // Define como se ordenan los estudiantes en el Heap
     @Override
     public int compareTo(Estudiante e) {
         // no entregó primero

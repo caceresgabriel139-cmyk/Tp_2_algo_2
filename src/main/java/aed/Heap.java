@@ -6,7 +6,7 @@ public class Heap<T extends Comparable<T>> {
     private ArrayList<Nodo> elementos;
 
     private class Nodo {
-        int indice;
+        int indice; // El orden de prioridad del nodo en el Heap
         T valor;
 
         public Nodo(T e, int i) {
@@ -15,6 +15,7 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
+    // Inicializa el Heap como un arreglo vacio de tamaño c
     public Heap(int c) {
         elementos = new ArrayList<>(c);
     }
@@ -36,6 +37,7 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
+    // Inicializa un nuevo nodo, lo agrega al fondo y luego lo hace subir hasta donde corresponde
     public HeapHandle agregar(T elem) {
         Nodo nuevoNodo = new Nodo(elem, elementos.size());
         elementos.add(nuevoNodo);
@@ -61,7 +63,7 @@ public class Heap<T extends Comparable<T>> {
         Nodo n = h.nodoApuntado;
         n.valor = nuevoValor;
         siftDown(n.indice);
-}
+    }
 
 
     // agarra a un estdiante y lo sube lo maximo que puede

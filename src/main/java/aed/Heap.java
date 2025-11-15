@@ -44,6 +44,8 @@ public class Heap<T extends Comparable<T>> {
         siftUp(nuevoNodo.indice);
         return new HeapHandle(nuevoNodo);
     }
+    // hacer un heapify para arreglar la complejidad 
+
 
     public int hijoDerecho(int i) {
         return 2 * i + 2;
@@ -66,7 +68,7 @@ public class Heap<T extends Comparable<T>> {
     }
 
 
-    // agarra a un estdiante y lo sube lo maximo que puede
+    // agarra a un estdiante y lo sFube lo maximo que puede
     private void siftUp(int i) {
         if (i == 0)
             return;

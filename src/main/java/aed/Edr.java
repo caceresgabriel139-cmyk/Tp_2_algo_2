@@ -14,6 +14,7 @@ public class Edr {
 
 // -------------------------------------------------NUEVO_EDR------------------------------------------------- //
 
+//TODO: Arreglar complejidad de la inicializacion
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico) { //O(E*R)
         ArrayList<Handle<Estudiante>> nuevosEstudiantesArray = new ArrayList<>(Cant_estudiantes); // Inicializa un array vacio de estudiantes
         Heap<Estudiante> nuevosEstudiantesHeap = new Heap<>(Cant_estudiantes);
@@ -62,8 +63,8 @@ public class Edr {
         }
 
         // vecino arriba
-        if (fila > 0 && !estudiantes.get(estudiante - alumnosPorFila).valor().entrego()) {
-            vecinos.add(estudiante - alumnosPorFila);
+        if (fila < ladoAula &&  estudiante + alumnosPorFila < estudiantes.size() &&!estudiantes.get(estudiante + alumnosPorFila).valor().entrego()) {
+            vecinos.add(estudiante + alumnosPorFila);
         }
 
         int cantDeRespuestas = -1;
@@ -93,7 +94,8 @@ public class Edr {
                 }
             }
 
-            if (nuevas > cantDeRespuestas) {
+            if (nuevas >= cantDeRespuestas && indicePrimera > primerIndice){
+
                 cantDeRespuestas = nuevas;
                 primerIndice = indicePrimera;
                 primerRespuesta = valorPrimera;
@@ -141,7 +143,7 @@ public class Edr {
             }
         }
         for (int i=0;i<modificados.size();i++){
-        estudiantesPorNota.agregar(modificados.get(i));
+            estudiantesPorNota.agregar(modificados.get(i));
         }    
         
     }
@@ -173,21 +175,31 @@ public class Edr {
 
     public NotaFinal[] corregir() {
         Estudiante[] temp = new Estudiante [estudiantesPorNota.Tamaño()];
-        NotaFinal[] res = new NotaFinal[estudiantesPorNota.Tamaño()];
+        ArrayList <NotaFinal> notasNoCopiones = new ArrayList<NotaFinal>();
         if (chequearonCopias == false){
             return null;
         }
+        int i = 0;
+
         while (estudiantesPorNota.Tamaño() > 0){
-            int i = 0;
             Estudiante raizSacada = estudiantesPorNota.desencolar();
-            if (copionesPorId[i] == false) {
-            res[i] = (raizSacada.notaFinal());
+            if (copionesPorId[raizSacada.id()] == false) {
+                notasNoCopiones.add(raizSacada.notaFinal());
             }
-            temp[i] = raizSacada; i++;
-            }
-        for (int j = 0; j < temp.length; j++){
-            estudiantesPorNota.agregar(temp[j]);
+            temp[i] = raizSacada; 
+            i++;
         }
+
+        NotaFinal[] res = new NotaFinal[notasNoCopiones.size()];
+        int k = 0;
+        for (int j=res.length-1; j>-1; j--){
+            res[k] = notasNoCopiones.get(j);
+            k++;
+        }
+
+        for (int j = 0; j < temp.length; j++){
+            estudiantesPorNota.agregar(temp[k]);
+        }        
         return res;
     }
 
@@ -207,11 +219,9 @@ public class Edr {
             for (int e = 0; e < estudiantes.size(); e++) {
                 int respuesta = estudiantes.get(e).valor().examen().get(p);
 
-                if (respuesta == -1) {
-                    continue;
+                if (respuesta > -1) {
+                    sub.set(respuesta, sub.get(respuesta) + 1);
                 }
-
-                sub.set(respuesta, sub.get(respuesta) + 1);
             }
 
             cantidadDeOpciones.add(sub);
@@ -223,25 +233,26 @@ public class Edr {
 
             Estudiante estudiante = estudiantes.get(e).valor();
             int copias = 0;
+            int conRespuesta = 0;
 
             for (int r = 0; r < cantidadDeOpciones.size(); r++) {
 
                 int respuesta = estudiante.examen().get(r);
 
                 // ignorar respuestas sin contestar (-1)
-                if (respuesta == -1) {
-                    continue;
-                }
+                if (respuesta > -1) {
+                    double porcentaje = (cantidadDeOpciones.get(r).get(respuesta) - 1) * 100.0 / (estudiantes.size() - 1);
 
-                double porcentaje = (cantidadDeOpciones.get(r).get(respuesta) - 1) * 100.0 / (estudiantes.size() - 1);
-
-                if (porcentaje >= 25) {
-                    copias++;
+                    if (porcentaje >= 25.0) {
+                        copias++;
+                    }
+                    conRespuesta++;
                 }
             }
 
-            if (copias == 10) {
+            if (conRespuesta > 0 && copias == conRespuesta) {
                 estudiantesCopiones.add(e);
+                copionesPorId[e] = true;
             }
         }
 

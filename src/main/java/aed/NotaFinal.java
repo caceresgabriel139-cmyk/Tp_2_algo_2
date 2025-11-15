@@ -15,10 +15,17 @@ public class NotaFinal implements Comparable<NotaFinal> {
         }
         return Double.compare(this._nota, otra._nota);
     }
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NotaFinal notaFinal = (NotaFinal) o;
-        return Double.compare(notaFinal._nota, _nota) == 0 && _id == notaFinal._id;
-    }
+
+    @Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NotaFinal notaFinal = (NotaFinal) o;
+    boolean notaIgual = Math.abs(notaFinal._nota - _nota) < 1e-9;
+    boolean idIgual = _id == notaFinal._id;
+    System.out.println("Comparando: " + _nota + "," + _id + " vs " + notaFinal._nota + "," + notaFinal._id + " -> notaIgual: " + notaIgual + ", idIgual: " + idIgual);
+    return notaIgual && idIgual;
+}
+
+
 }

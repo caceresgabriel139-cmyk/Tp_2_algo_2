@@ -6,13 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import java.util.Arrays;
 
-// Aula vacía,
-// Aula llena, con un alumno, examen de darkWeb todas incorrectas, 
-// copiarse para adelante y a los costados, sin personas para copiar, 
-// poner a prueba si el heap está bien, o sea, bien ordenado por las notas, tipo un test de estrés
-
-
-//! Por algun motivo no nos deja correr los tests desde arriba a la derecha en visual pero si tocando a la izquierada del nombre de la clase
+//! Por algun motivo no nos deja correr los tests desde arriba a la derecha en visual pero si tocando a la izquierda del nombre de la clase
 class TestsPropios {
   Edr edr;
 

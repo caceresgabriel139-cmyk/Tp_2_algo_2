@@ -12,7 +12,7 @@ import java.util.Arrays;
 // poner a prueba si el heap está bien, o sea, bien ordenado por las notas, tipo un test de estrés
 
 
-//! Por algun motivo no nos deja correr los tests desde arriba a la derecha en visual pero si tocando al lado del nombre de la clase
+//! Por algun motivo no nos deja correr los tests desde arriba a la derecha en visual pero si tocando a la izquierada del nombre de la clase
 class TestsPropios {
   Edr edr;
 

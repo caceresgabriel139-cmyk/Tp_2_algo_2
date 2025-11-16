@@ -168,53 +168,23 @@ public class Edr {
     //  - Aplicar examenDW a k estudiantes: O(k * R)
     //  - Reconstruir heap: O(E)
     // => Complejidad total: O(E^2 + k*R + E log E) → dominante O(E^2 + k*R)
-    public void consultarDarkWeb(int k, int[] examenDW) {
-        if (k > estudiantesSinEntregar) {
-            throw new IllegalArgumentException("No hay suficientes estudiantes sin entregar");
-        }
+    public void consultarDarkWeb(int n, int[] examenDW) {
 
-        // 1. Vaciar el heap y recolectar todos los estudiantes
-        ArrayList<Estudiante> allStudents = new ArrayList<>();
-        while (estudiantesPorNota.Tamaño() > 0) {
-            // desencolar() devuelve el Estudiante mínimo; cada llamada O(log E)
-            allStudents.add(estudiantesPorNota.desencolar());
-        }
-
-        // 2. Filtrar los estudiantes que no han entregado -> O(E)
-        ArrayList<Estudiante> estudiantesTemporales = new ArrayList<>();
-        for (int i = 0; i < allStudents.size(); i++) {
-            Estudiante est = allStudents.get(i);
-            if (!est.entrego()) {
-                estudiantesTemporales.add(est);
+        Estudiante est;
+        ArrayList<Estudiante> modificados = new ArrayList<>();
+        for (int i=0;i<n;i++){
+            est=estudiantesPorNota.desencolar();
+            if(est.entrego()==false){
+            est.cambiarExamen(examenDW,examenCanonico);
+            modificados.add(est);
+            }else{
+            i=n;
             }
         }
-
-        // 3. Ordenar manualmente estudiantesTemporales por nota ascendente, luego id ascendente
-        //    (insertion sort usando compareTo) — O(N^2) donde N = estudiantesTemporales.size() ≤ E
-        for (int i = 1; i < estudiantesTemporales.size(); i++) {
-            Estudiante estudianteTemporal = estudiantesTemporales.get(i);
-            int j = i - 1;
-            while (j >= 0 && estudianteTemporal.compareTo(estudiantesTemporales.get(j)) < 0) {
-                estudiantesTemporales.set(j + 1, estudiantesTemporales.get(j)); // movimiento O(1)
-                j--;
-            }
-            estudiantesTemporales.set(j + 1, estudianteTemporal);
+        for (int i=0;i<modificados.size();i++){
+        estudiantesPorNota.agregar(modificados.get(i));
         }
 
-        // 4. Tomar los primeros k (los peores) y modificar sus exámenes -> O(k * R)
-        for (int i = 0; i < k; i++) {
-            Estudiante est = estudiantesTemporales.get(i);
-            est.cambiarExamen(examenDW, examenCanonico); // O(R)
-        }
-
-        // 5. Reconstruir el heap con TODOS los estudiantes (O(E))
-        ArrayList<Heap<Estudiante>.HeapHandle> newHandles = new ArrayList<>();
-        estudiantesPorNota = new Heap<>(allStudents, newHandles);
-
-        // 6. Actualizar el ArrayList de handles por id (O(E))
-        for (int i = 0; i < allStudents.size(); i++) {
-            estudiantes.set(allStudents.get(i).id(), newHandles.get(i));
-        }
     }
 
 

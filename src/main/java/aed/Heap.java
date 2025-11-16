@@ -96,7 +96,7 @@ public class HeapHandle implements Handle<T> {
     // Complejidad: O(E), usando heapify óptimo
     private void buildHeap() {
         // Recorre todos los nodos internos de abajo hacia arriba aplicando siftDown
-        for (int i = elementos.size() / 2 - 1; i >= 0; i--) {
+        for (int i = (elementos.size() / 2) - 1; i >= 0; i--) {
             siftDown(i);  // Restaura la propiedad de heap para cada subárbol
         }
     }
@@ -118,14 +118,11 @@ public class HeapHandle implements Handle<T> {
         int i = n.indice;        // Ubicación del nodo dentro del heap
 
         // Si el nuevo valor es menor, sube en el heap
-        if (nuevoValor.compareTo(viejoValor) < 0) {
-            siftUp(i); // O(log E)
-        } 
+        siftUp(i); // O(log E) 
         // Si el nuevo valor es mayor, baja en el heap
-        else if (nuevoValor.compareTo(viejoValor) > 0) {
-            siftDown(i); // O(log E)
+        siftDown(i); // O(log E)
         }
-    }
+    
 
     // ----------------------------- AGREGAR ----------------------------- //
 
@@ -194,13 +191,10 @@ public class HeapHandle implements Handle<T> {
         Nodo raiz = elementos.get(0);
         T valor = raiz.valor;
 
-        // 2. Invalidamos su índice (por si alguien usa el handle luego)
-        raiz.indice = -1;
-
-        // 3. Tomamos el último nodo del array
+        // 2. Tomamos el último nodo del array
         Nodo ultimo = elementos.remove(elementos.size() - 1);
 
-        // 4. Si todavía contiene elementos, mover el último a la raíz
+        // 3. Si todavía contiene elementos, mover el último a la raíz
         if (!elementos.isEmpty()) {
             elementos.set(0, ultimo);
             ultimo.indice = 0;

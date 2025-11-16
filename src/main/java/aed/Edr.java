@@ -265,58 +265,61 @@ public class Edr {
     // Devuelve array de NotaFinal de los no-copiones ordenado por nota descendente y id descendente.
     // Complejidad:
     //  - Vaciar heap: O(E log E)
-    //  - Filtrar: O(E)
-    //  - Ordenar notasNoCopiones (insertion sort): O((E-K)^2) donde K = #copiones
+    //  - Filtrar: O(1)
     //  - Restaurar heap (agregar E elementos): O(E log E)
-    // => Total dominante: O((E-K)^2 + E log E) → normalmente O(E^2) en peor caso.
-    public NotaFinal[] corregir() {
-        Estudiante[] temp = new Estudiante[estudiantesPorNota.Tamaño()];
-        ArrayList<NotaFinal> notasNoCopiones = new ArrayList<NotaFinal>();
-        if (!chequearonCopias) {  // Asumiendo que chequearonCopias es boolean
-            return null;
-        }
-        int i = 0;
+    //  - Complejidad total: O(E log E + E + E log E) = O(E* log E)
+public NotaFinal[] corregir() {
 
-        // Vaciar heap y filtrar no copiones
-        while (estudiantesPorNota.Tamaño() > 0) {
-            Estudiante raizSacada = estudiantesPorNota.desencolar(); // O(log E) cada vez
-            if (!copionesPorId[raizSacada.id()]) {  // añade si no es copión -> O(1)
-                notasNoCopiones.add(raizSacada.notaFinal());
-            }
-            temp[i] = raizSacada; // guardamos para restaurar luego
-            i++;
-        }
+    Estudiante[] temp = new Estudiante [estudiantesPorNota.Tamaño()]; // O(1)
 
-        // Ordenar notasNoCopiones manualmente: nota descendente, id descendente (insertion sort)
-        for (int p = 1; p < notasNoCopiones.size(); p++) {
-            NotaFinal notaTemporal = notasNoCopiones.get(p);
-            int q = p - 1;
-            while (q >= 0) {
-                NotaFinal current = notasNoCopiones.get(q);
-                // Comparar: mayor nota primero, luego mayor id primero
-                boolean shouldSwap = (notaTemporal._nota > current._nota) || (notaTemporal._nota == current._nota && notaTemporal._id > current._id);
-                if (!shouldSwap) break;
-                notasNoCopiones.set(q + 1, current);
-                q--;
-            }
-            notasNoCopiones.set(q + 1, notaTemporal);
-        }
+    ArrayList <NotaFinal> notasNoCopiones = new ArrayList<NotaFinal>(); //O(1)
 
-        // Crear array resultado (O(E))
-        NotaFinal[] res = new NotaFinal[notasNoCopiones.size()];
-        for (int j = 0; j < res.length; j++) {
-            res[j] = notasNoCopiones.get(j);
-        }
+    if (chequearonCopias == false){ // O(1)
 
-        // Restaurar heap: volver a agregar todos los estudiantes previamente extraídos
-        // Cada agregar es O(log E) => total O(E log E)
-        for (int j = 0; j < temp.length; j++) {
-            estudiantesPorNota.agregar(temp[j]);
-        }
+        return null;
 
-        return res;
     }
 
+    int i = 0; 
+
+    //COMPLEJIDAD DEL WHILE: O(E*(log E))
+    while (estudiantesPorNota.Tamaño() > 0){  //O(E)
+
+        Estudiante raizSacada = estudiantesPorNota.desencolar(); //O(log E)
+
+        if (copionesPorId[raizSacada.id()] == false) { //O(1)
+
+            notasNoCopiones.add(raizSacada.notaFinal()); //O(1)
+
+        }
+
+        temp[i] = raizSacada; //O(1)
+
+        i++; //O(1)
+
+    }
+
+    NotaFinal[] res = new NotaFinal[notasNoCopiones.size()]; //O(1)
+
+    int k = 0;
+    //DA VUELTA LAS NOTAS: COMPLEJIDAD DEL FOR = O(E) 
+    for (int j=res.length-1; j>-1; j--){
+
+        res[k] = notasNoCopiones.get(j);
+
+        k++;
+
+    }
+    //REARMA EL HEAP: COMPLEJIDAD DEL FOR = O(E * log E) 
+    for (int j = 0; j < temp.length; j++){
+
+        estudiantesPorNota.agregar(temp[j]);
+
+    }        
+
+    return res;
+
+}
 // -------------------------------------------------CHEQUEAR COPIAS------------------------------------------------- //
 
     // Detecta estudiantes que probablemente copiaron.
